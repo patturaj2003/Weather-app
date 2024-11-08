@@ -1,0 +1,134 @@
+/* 
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  align-items: center;
+  background: url("../images/body.jpg");
+  height: 100%;
+  width: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+
+.weather-container  {
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin-top: 50px;
+  padding: 20px;
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+ */
+/* styles/main.css */
+
+/* Reset some default browser styles */
+body, h1, h2, p, form, input, button {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  color: #333;
+  background: url("../images/body.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  text-align: center;
+  align-items: center;
+  margin-top: 50px;
+  height: 100%;
+  width: 100%;
+  background-color: #f4f4f4;
+}
+
+.weather-container {
+  text-align: center;
+  color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background for text readability */
+  margin: 20px auto;
+  max-width: 800px;
+  position: relative;
+  overflow: hidden;
+}
+
+.weather-container h1 {
+  font-size: 2em;
+  margin-bottom: 10px;
+}
+
+.weather-container h2 {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+.weather-container p {
+  font-size: 1em;
+  margin-bottom: 10px;
+}
+
+.weather-container form {
+  margin-top: 20px;
+}
+
+.weather-container input[type="text"] {
+  padding: 10px;
+  font-size: 1em;
+  border: none;
+  border-radius: 4px;
+  width: 80%;
+  max-width: 300px;
+  margin-right: 10px;
+}
+
+.weather-container button {
+  padding: 10px 20px;
+  font-size: 1em;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.weather-container button:hover {
+  background-color: #0056b3;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .weather-container {
+      padding: 10px;
+  }
+
+  .weather-container h1 {
+      font-size: 1.5em;
+  }
+
+  .weather-container h2 {
+      font-size: 1.2em;
+  }
+
+  .weather-container p {
+      font-size: 0.9em;
+  }
+
+  .weather-container input[type="text"] {
+      width: 70%;
+  }
+
+  .weather-container button {
+      padding: 8px 15px;
+      font-size: 0.9em;
+  }
+}
+
+/* Background Image Handling */
+.weather-container {
+  background-size: cover;
+  background-position: center;
+}

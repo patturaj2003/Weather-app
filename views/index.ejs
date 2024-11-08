@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles/main.css">
+    <title>I'm Bored</title>
+</head>
+
+<body >
+
+    
+    <div class="weather-container" style="background-image: url('<%= backgroundImageUrl %>');">
+        <h1>Weather Report </h1>
+
+        <div>
+        <% if (error) { %>
+            <div class="error-message">
+                <p>Error: <%= error %></p>
+            </div>
+            <% } %>
+        </div>
+
+        <% if (!error) { %>
+        <% if (weatherdata) { %>
+        <div class="weather-info">
+            <h2>Current Weather in <%= weatherdata.city %></h2>
+            <p>Description: <%= weatherdata.description %></p>
+            <p>Temperature: <%= weatherdata.temperature %> &deg;C</p>
+            <p>Humidity: <%= weatherdata.humidity %> %</p>
+            <p>Wind Speed: <%= weatherdata.windSpeed %> m/s</p>
+        </div>
+        <% } else { %>
+        <p>Enter the city name here</p>
+        <% } %>
+
+        <form action="/weather" method="post">
+            <label for="city">CITY:</label>
+            <input type="text" id="city" name="city" required>
+            <button type="submit">Get Weather</button>
+        </form>
+        <% } %>
+
+        
+
+    </div>
+</body>
+
+</html>

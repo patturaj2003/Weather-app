@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles/main.css">
+    <title>I'm Bored</title>
+</head>
+
+<body class="<%= weatherdata.description && weatherdata.description.toLowerCase().replace(/\s/g, '-') %>" >
+    
+    <div class="weather-container">
+        <h1>Weather Report </h1>
+
+        <% if (weatherdata) { %>
+        <div class="weather-container">
+            <h2>Current Weather  in <%= weatherdata.city %></h2>
+            <p>Description: <%= weatherdata.description %></p>
+            <p>Temperature: <%= weatherdata.temperature %> &deg;C</p>
+            <p>Humidity: <%= weatherdata.humidity %> %</p>
+            <p>Wind Speed: <%= weatherdata.windSpeed %> m/s</p>
+        
+        </div>
+        <% } else { %>
+        <p> Please enter a city above.</p>
+        <form action="/weather" method="post">
+          <label for="city">CITY:</label>
+          <input type="text" id="city" name="city" required>
+          <button type="submit">Get Weather</button>
+      </form>
+
+        <% } %>
+
+
+        
+
+    </div>
+</body>
+
+</html>
+
+
+
+import express from "express";
+import axios from "axios";
+import bodyParser from "body-parser";
+
+const app = express();
+const port = 3000;
+
+// Replace with your OpenWeatherMap API key
+const apiKey = "810d7ee413c3ad47f888090b3d83a13a";
+
+// Middleware setup
+app.use(express.static("public"));
+
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// Routes
+app.get("/", (req, res) => {
+    res.render("index.ejs", { weatherdata: "", error: ""});
+});
+
+app.post("/weather", async (req, res) => {
+    const { city } = req.body;
+
+    if (!city) {
+        return res.status(400).send("City name is required");
+    }
+
+    const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${apiKey}&units=metric`;
+
+    try {
+        const response = await axios.get(apiUrl);
+
+
+        if (response.status !== 200) {
+            throw new Error(`Weather data not available for ${city}`);
+        }
+
+        const weatherData = {
+            city: response.data.name,
+            description: response.data.weather[0].description,
+            temperature: response.data.main.temp,
+            humidity: response.data.main.humidity,
+            windSpeed: response.data.wind.speed,
+        };
+        weatherItem.style.backgroundImage = `url(${backgroundImageUrl})`;
+        res.render("index.ejs", { weatherdata: weatherData, error: null });
+
+    } catch (error) {
+        console.error(`Error fetching weather data for ${city}:`, error.message);
+        res.render("index.ejs", { weatherdata: null, error: `Weather data not available for ${city}` });
+    }
+});
+
+// Function to map weather description to background image URL
+function getBackgroundImageUrl(description) {
+  switch (description.toLowerCase()) {
+      case 'clear sky':
+          return 'https://example.com/clear-sky.jpg'; // Replace with your image URL
+      case 'few clouds':
+      case 'scattered clouds':
+      case 'broken clouds':
+      case 'overcast clouds':
+          return 'https://example.com/cloudy.jpg'; // Replace with your image URL for cloudy weather
+      case 'light rain':
+      case 'moderate rain':
+      case 'heavy intensity rain':
+      case 'very heavy rain':
+      case 'extreme rain':
+      case 'freezing rain':
+      case 'drizzle':
+          return 'https://example.com/rain.jpg'; // Replace with your image URL for rainy weather
+      case 'mist':
+      case 'fog':
+      case 'haze':
+      case 'smoke':
+      case 'dust':
+      case 'sand':
+      case 'ash':
+          return "data:image/jpeg;base64,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"; 
+          // Replace with your image URL for foggy conditions
+      case 'squalls':
+      case 'tornado':
+          return 'https://example.com/storm.jpg'; // Replace with your image URL for stormy conditions
+      default:
+          return 'https://example.com/default.jpg'; // Replace with a default image or handle unknown conditions
+  }
+}
+
+// Start the server
+app.listen(port, () => {
+    console.log(`Server is running on http://localhost:${port}`);
+});
