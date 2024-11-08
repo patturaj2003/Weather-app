@@ -5,9 +5,6 @@ This project is a simple web application that displays the current weather for a
 ## Table of Contents
 - [Features](#features)
 - [Technologies Used](#technologies-used)
-- [Setup](#setup)
-- [Usage](#usage)
-- [License](#license)
 
 ## Features
 - Displays current weather information for a specified city.
